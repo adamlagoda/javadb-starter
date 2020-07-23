@@ -43,22 +43,16 @@ public class ConnectionFactory {
     }
 
     public Connection getConnection() throws SQLException {
-        MysqlDataSource dataSource = null;
-        try {
-            dataSource = new MysqlDataSource();
-            dataSource.setServerName(properties.getProperty("org.example.jdbc.starter.server"));
-            dataSource.setDatabaseName(properties.getProperty("org.example.jdbc.starter.name"));
-            dataSource.setUser(properties.getProperty("org.example.jdbc.starter.user"));
-            dataSource.setPassword(properties.getProperty("org.example.jdbc.starter.password"));
-            dataSource.setPort(Integer.valueOf(properties.getProperty("org.example.jdbc.starter.port")));
-            dataSource.setServerTimezone("Europe/Warsaw");
-            dataSource.setAllowMultiQueries(true);
-            dataSource.setAllowPublicKeyRetrieval(true);
-            dataSource.setUseSSL(false);
-            dataSource.setCharacterEncoding("UTF-8");
-        } catch (SQLException e) {
-            logger.error("Error during creating MysqlDataSource", e);
-        }
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setServerName(properties.getProperty("org.example.jdbc.starter.server"));
+        dataSource.setDatabaseName(properties.getProperty("org.example.jdbc.starter.name"));
+        dataSource.setUser(properties.getProperty("org.example.jdbc.starter.user"));
+        dataSource.setPassword(properties.getProperty("org.example.jdbc.starter.password"));
+        dataSource.setPort(Integer.valueOf(properties.getProperty("org.example.jdbc.starter.port")));
+        dataSource.setAllowMultiQueries(true);
+        dataSource.setServerTimezone("Europe/Warsaw");
+        dataSource.setUseSSL(false);
+        dataSource.setCharacterEncoding("UTF-8");
         logger.info("Connecting to a selected database...");
         return dataSource.getConnection();
     }
