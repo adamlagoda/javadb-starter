@@ -1,6 +1,9 @@
 package org.example.jdbc.starter;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SqlInjectionSample {
 
@@ -34,15 +37,19 @@ public class SqlInjectionSample {
     }
 
     public void addAdmin(String login, String password) throws SQLException {
-        try (Connection connection = new ConnectionFactory("database.properties").getConnection();
-             PreparedStatement statement = connection.prepareStatement("insert into admins(login, password) values (?, ?);")) {
-            statement.setString(1, login);
-            statement.setString(2, password);
-            statement.executeUpdate();
+        try (Connection connection = new ConnectionFactory("database.properties").getConnection()) {
+            Statement statement = connection.createStatement();
+            String sql = String.format("insert into admins(login, password) values ('%s', '%s');", login, password);
+            System.out.println("sql = " + sql);
+            int insertedRows = statement.executeUpdate(sql);
+            if (insertedRows > 0) {
+                System.out.println("Created admin");
+            }
         }
+
     }
 
-    public static void main (String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         SqlInjectionSample sample = new SqlInjectionSample();
 
         sample.createTable();
@@ -64,6 +71,6 @@ public class SqlInjectionSample {
         //System.out.println("admin = " + admin);
 
         //MultiQueries
-        //sample.addAdmin("123", "');DROP TABLE admins;#");
+        sample.addAdmin("123", "');DROP TABLE admins;#");
     }
 }
