@@ -48,7 +48,7 @@
     <changeSet id="create_table_students" author="Adam_Lagoda">
         <createTable tableName="students">
             <column name="id" type="INT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_courses"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_students"/>
             </column>
             <column name="name" type="VARCHAR(50)" />
             <column name="course_id" type="INT" />
@@ -62,7 +62,7 @@
     <changeSet id="create_table_attendance_list" author="Adam_Lagoda">
         <createTable tableName="attendance_list">
             <column name="id" type="INT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_courses"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_attendance_list"/>
             </column>
             <column name="student_id" type="INT" />
             <column name="course_id" type="INT" />
