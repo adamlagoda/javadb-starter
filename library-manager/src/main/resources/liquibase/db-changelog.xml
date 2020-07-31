@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="create_table_books" author="Adam_Lagoda">
+        <createTable tableName="books">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_books"/>
+            </column>
+            <column name="category_id" type="INT" />
+            <column name="title" type="VARCHAR(200)" />
+            <column name="author" type="VARCHAR(70)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_orders" author="Adam_Lagoda">
+        <createTable tableName="orders">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_orders"/>
+            </column>
+            <column name="user_id" type="INT" />
+            <column name="book_id" type="INT" />
+            <column name="order_date" type="DATETIME" />
+            <column name="return_date" type="DATETIME" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_users" author="Adam_Lagoda">
+        <createTable tableName="users">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_users"/>
+            </column>
+            <column name="login" type="VARCHAR(50)" />
+            <column name="password" type="VARCHAR(45)" />
+            <column name="name" type="VARCHAR(100)" />
+            <column name="admin" type="TINYINT(1)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_categories" author="Adam_Lagoda">
+        <createTable tableName="categories">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_categories"/>
+            </column>
+            <column name="name" type="VARCHAR(200)" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_foreign_keys" author="Adam_Lagoda">
+        <addForeignKeyConstraint baseTableName="books" baseColumnNames="category_id" constraintName="fk_books_category_id"
+                                 referencedTableName="categories" referencedColumnNames="id" onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="book_id" constraintName="fk_orders_book_id"
+                                 referencedTableName="books" referencedColumnNames="id" onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="user_id" constraintName="fk_orders_user_id"
+                                 referencedTableName="users" referencedColumnNames="id" onDelete="RESTRICT"/>
+    </changeSet>
+
+</databaseChangeLog>
