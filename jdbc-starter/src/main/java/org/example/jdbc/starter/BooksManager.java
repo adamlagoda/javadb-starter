@@ -50,11 +50,11 @@ public class BooksManager {
             affectedRows = statement.executeUpdate("insert into books_authors(book_id, author_id) values (" + bookId + "," + authorId + ");");
             logger.info("Created {} rows in books_authors", affectedRows);
 
-            int createdCategories = statement.executeUpdate("insert into categories(name) values ('Sytemy operacyjne')");
+            int createdCategories = statement.executeUpdate("insert into categories(name) values ('Systemy operacyjne')");
             logger.info("Created {} category", createdCategories);
-            statement.executeUpdate("insert into books_categories(book_id, category_id) values (" + bookId + ", (select category_id from categories where name='Systemy operacyjne'));");
+            statement.executeUpdate("insert into books_categories(book_id, category_id) values (" + bookId + ", (select category_id from categories order by category_id desc limit 0,1));");
             createdCategories = statement.executeUpdate("insert into categories(name) values ('Linux')");
-            statement.executeUpdate("insert into books_categories(book_id, category_id) values (" + bookId + ", (select category_id from categories where name='Linux'));");
+            statement.executeUpdate("insert into books_categories(book_id, category_id) values (" + bookId + ", (select category_id from categories order by category_id desc limit 0,1));");
             logger.info("Created {} category", createdCategories);
         }
         connection.setAutoCommit(defaultAutocommit);
