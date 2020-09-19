@@ -23,4 +23,13 @@ public class BooksManagerTest {
         //then
         Assert.assertFalse(titles.isEmpty());
     }
+
+    @Test
+    public void shouldAddNewBook() {
+        //when
+        boolean result = underTest.addBook("Książka 3");
+
+        //then
+        Assert.assertTrue(result);
+    }
 }

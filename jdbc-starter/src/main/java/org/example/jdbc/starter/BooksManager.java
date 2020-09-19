@@ -42,4 +42,18 @@ public class BooksManager {
         }
         return result;
     }
+
+    public boolean addBook(String title) {
+        String sql = "insert into books (title, publish_date, ISBN, pages, publisher," +
+                "netto_price, vat_rate, reserved) values ('" + title +"'," +
+                "'2020-09-20', '978-83-246-8898-8', 253, 'Helion', 34.54, 19, 0);";
+        try(Connection connection = connectionFactory.getConnection();
+        Statement insertBook = connection.createStatement()) {
+            int i = insertBook.executeUpdate(sql);
+            return i > 0;
+        } catch (SQLException throwables) {
+            logger.error("Couldn't add book");
+        }
+        return false;
+    }
 }
