@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BooksManager {
 
@@ -24,7 +26,8 @@ public class BooksManager {
         manager.listNonReservedBooks();
     }
 
-    private void listNonReservedBooks() {
+    public List<String> listNonReservedBooks() {
+        List<String> result = new ArrayList<>();
         try(Connection connection = connectionFactory.getConnection();
             Statement statement = connection.createStatement()) {
             String query = "select * from books where reserved=0;";
@@ -32,9 +35,11 @@ public class BooksManager {
             while (resultSet.next()) {
                 String title = resultSet.getString("title");
                 logger.info("Book title = {}", title);
+                result.add(title);
             }
         } catch (SQLException throwables) {
             logger.error("Couldn't connect to database");
         }
+        return result;
     }
 }
