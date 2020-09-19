@@ -13,7 +13,7 @@ public class ConnectionFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        underTest = new ConnectionFactory("");
+        underTest = new ConnectionFactory("database.properties");
     }
 
     @Test
