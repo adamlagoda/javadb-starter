@@ -1,5 +1,5 @@
 package org.example.library;
-
+// Niezbędny import do classpath-a w sekcji dependencies w pom.xml (linijki 41 - 56)
 import org.example.jdbc.starter.ConnectionFactory;
 
 import java.sql.Connection;
@@ -83,7 +83,7 @@ public class DatabaseManager {
     public static void main(String[] args) throws SQLException {
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.createDb();
-
+        databaseManager.initializeDb();
         //databaseManager.dropDb();
     }
 }
