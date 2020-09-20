@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class JdbcUsersDao implements IUsersDao {
@@ -41,7 +42,24 @@ public class JdbcUsersDao implements IUsersDao {
 
     @Override
     public List<User> list() {
-        return new ArrayList<>();
+        logger.info("Finding all users");
+        List<User> users = new LinkedList<>();
+        try (Connection connection = connectionFactory.getConnection();
+        PreparedStatement fidAllUsers = connection.prepareStatement("SELECT * FROM users")) {
+            ResultSet usersSet = fidAllUsers.executeQuery();
+            while (usersSet.next()) {
+                String name = usersSet.getString("name");
+                String login = usersSet.getString("login");
+                String password = usersSet.getString("password");
+                boolean isAdmin = usersSet.getBoolean("admin");
+                int id = usersSet.getInt("id");
+                User user = new User(id, login, password, name, isAdmin);
+                users.add(user);
+            }
+        } catch (SQLException throwables) {
+            logger.error(throwables.getSQLState());
+        }
+        return users;
     }
 
     @Override
