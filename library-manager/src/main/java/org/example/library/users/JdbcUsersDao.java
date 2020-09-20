@@ -18,7 +18,7 @@ public class JdbcUsersDao implements IUsersDao {
     private ConnectionFactory connectionFactory;
 
     public JdbcUsersDao() {
-        connectionFactory = new ConnectionFactory(DATABASE_PROPERTIES)
+        connectionFactory = new ConnectionFactory(DATABASE_PROPERTIES);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class JdbcUsersDao implements IUsersDao {
     }
 
     @Override
-    public List<User> list(UserParameters userParameters) {
+    public List<User> list() {
         return new ArrayList<>();
     }
 
@@ -50,5 +50,10 @@ public class JdbcUsersDao implements IUsersDao {
 
     @Override
     public void deleteUser(int userId) {
+    }
+
+    @Override
+    public void updateUser(User toUpdate) {
+
     }
 }
