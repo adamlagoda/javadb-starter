@@ -7,4 +7,5 @@ public interface IBooksDao {
     void add(Book book);
     void delete(int bookId);
     List<Category> listCategories();
+    List<Book> listAllMatchingPhraseTitle(String phrase);
 }
