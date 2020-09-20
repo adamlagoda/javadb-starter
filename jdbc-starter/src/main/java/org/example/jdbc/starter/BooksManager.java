@@ -23,7 +23,11 @@ public class BooksManager {
     public static void main(String[] args) {
         //Pobieramy połączenie
         BooksManager manager = new BooksManager();
-        manager.listNonReservedBooks();
+        //manager.listNonReservedBooks();
+        List<String> booksWithCategories = manager.findBooksWithCategories();
+        for (String book : booksWithCategories) {
+            logger.info(book);
+        }
     }
 
     public List<String> listNonReservedBooks() {
@@ -55,5 +59,25 @@ public class BooksManager {
             logger.error("Couldn't add book");
         }
         return false;
+    }
+
+    public List<String> findBooksWithCategories() {
+        List<String> booksWithCategories = new ArrayList<>();
+        String sql = "Select b.book_id, b.title, c.name from books b left join books_categories bc " +
+                "on b.book_id = bc.book_id left join categories c on c.category_id = bc.category_id;";
+        try(Connection connection = connectionFactory.getConnection();
+            Statement selectWithCategories = connection.createStatement()) {
+            ResultSet resultSet = selectWithCategories.executeQuery(sql);
+            while (resultSet.next()) {
+                int bookId = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String categoryName = resultSet.getString(3);
+                String record = String.format("%d, %s, %s", bookId, name, categoryName);
+                booksWithCategories.add(record);
+            }
+        } catch (SQLException throwables) {
+            logger.error("Couldn't select books");
+        }
+        return booksWithCategories;
     }
 }

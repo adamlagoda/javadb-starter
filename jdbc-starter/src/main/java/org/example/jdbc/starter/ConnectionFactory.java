@@ -52,9 +52,9 @@ public class ConnectionFactory {
             dataSource.setPassword(properties.getProperty("org.example.jdbc.starter.password"));
             dataSource.setPort(Integer.parseInt(properties.getProperty("org.example.jdbc.starter.port")));
             dataSource.setServerTimezone(properties.getProperty("org.example.jdbc.starter.timezone"));
-            /*dataSource.setAllowMultiQueries(true);
+            dataSource.setAllowMultiQueries(true);
             dataSource.setAllowPublicKeyRetrieval(true);
-            dataSource.setUseSSL(false);*/
+            dataSource.setUseSSL(false);
             dataSource.setCharacterEncoding("UTF-8");
         } catch (SQLException e) {
             logger.error("Error during creating MysqlDataSource", e);

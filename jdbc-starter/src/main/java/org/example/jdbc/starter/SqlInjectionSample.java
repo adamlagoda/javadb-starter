@@ -59,12 +59,12 @@ public class SqlInjectionSample {
         System.out.println("not-admin = " + sample.findAdmin("top", "123"));
 
         //dodanie OR'a
-//        String admin = sample.findAdmin("", "' OR 1='1");
-//        System.out.println("admin = " + admin);
+        //String admin = sample.findAdmin("", "' OR 1='1");
+       //System.out.println("admin = " + admin);
 
         //dodanie znaku początku komentarza
-//        String admin = sample.findAdmin("top'#", "123");
-//        System.out.println("admin = " + admin);
+       // String admin = sample.findAdmin("top'#", "123");
+        //System.out.println("admin = " + admin);
 
         //połączenie OR'a i komentarzy
         //String admin = sample.findAdmin("' OR 1=1;#", "123");
